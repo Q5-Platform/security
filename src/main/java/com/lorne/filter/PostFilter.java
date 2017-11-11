@@ -40,7 +40,7 @@ public class PostFilter extends ZuulFilter {
         Response res = new Response();
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletResponse response =  ctx.getResponse();
-
+        response.setHeader("Content-Type","application/json;charset=UTF-8");
         InputStream  dataInput  = ctx.getResponseDataStream();
 
         HttpServletRequest request = ctx.getRequest();
