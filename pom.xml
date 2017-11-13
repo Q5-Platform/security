@@ -138,7 +138,7 @@
 						<!-- 添加index则不从mainfest中读取classpath，而是从Index.list中读取 -->
 						<!--                         <index>true</index> -->
 						<manifest>
-							<mainClass>com.lorne.SecurityApplication</mainClass>
+							<mainClass>com.codingapi.SecurityApplication</mainClass>
 							<!-- to create a class path to your dependecies you have to fill true
                                 in this field -->
 							<addClasspath>true</addClasspath>
