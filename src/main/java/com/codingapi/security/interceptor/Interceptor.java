@@ -1,9 +1,10 @@
 package com.codingapi.security.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.codingapi.security.utils.NoTokenUtils;
 import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.redis.RedisHelper;
+import com.codingapi.security.utils.SecurityConfig;
+import com.codingapi.security.utils.SecurityConfigUtils;
 import com.lorne.core.framework.Code;
 import com.lorne.core.framework.model.Msg;
 import com.lorne.core.framework.model.Response;
@@ -19,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by houcunlu on 2017/8/16.
@@ -55,20 +54,20 @@ public class Interceptor implements  HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
         String  url = request.getRequestURI();
 
-        String dbName = getDbName(url);
+        String dbName = SecurityConfigUtils.getInstance().getDbName(url);
         if(StringUtils.isNotEmpty(dbName)){
             DbNameLocal dbNameLocal = new DbNameLocal();
             dbNameLocal.setKey(dbName);
             DbNameLocal.setCurrent(dbNameLocal);
         }
 
+        SecurityConfig securityConfig =  SecurityConfigUtils.getInstance().getSecurityConfig(dbName);
 
         String token = ServletRequestUtils.getStringParameter(request, "token", "");
         // urls 接口
-        List<String> noTokenUrls = NoTokenUtils.urls;
-        for(int i = 0; i < noTokenUrls.size() ; i++ ){
-            if(!noTokenUrls.get(i).equals("")){
-                String action = noTokenUrls.get(i);
+        List<String> noTokenUrls = securityConfig.getAlowUrls();
+        for(String action:noTokenUrls){
+            if(StringUtils.isNotEmpty(action)){
                 String sUrl = url.substring(url.length() - action.length()  , url.length());
                 if(action.equals(sUrl)){
                     return  true;
@@ -118,28 +117,6 @@ public class Interceptor implements  HandlerInterceptor {
 
         return url;
     }
-
-
-
-    private String getDbName(String path){
-        Pattern pattern = Pattern.compile("/db_.*_/");
-
-        Matcher matcher = pattern.matcher(path);
-
-        if(matcher.find()){
-
-            String res = matcher.group();
-            res = res.replaceAll("/","");
-            res = res.replace("db_","");
-            res = res.replaceAll("_","");
-
-            return res;
-        }
-
-        return null;
-    }
-
-
 
 
 

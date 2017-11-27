@@ -5,11 +5,12 @@ import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.model.VerificationResult;
 import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.service.CheckService;
-import com.codingapi.security.utils.NoTokenUtils;
+import com.codingapi.security.utils.SecurityConfig;
+import com.codingapi.security.utils.SecurityConfigUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,12 +36,18 @@ public class CheckServiceImpl implements CheckService {
 
         VerificationResult verificationResult = new VerificationResult();
 
+        String dbName = SecurityConfigUtils.getInstance().getDbName(url);
+
         //urls 接口
 
-        List<String> noTokenUrls = NoTokenUtils.urls;
-        for(int i = 0; i < noTokenUrls.size() ; i++ ){
-            if(!noTokenUrls.get(i).equals("") && url.equals(noTokenUrls.get(i))){
-                return verificationResult;
+        SecurityConfig securityConfig =  SecurityConfigUtils.getInstance().getSecurityConfig(dbName);
+
+        List<String> noTokenUrls = securityConfig.getAlowUrls();
+        for(String action:noTokenUrls){
+            if(StringUtils.isNotEmpty(action)) {
+                if (url.equals(action)) {
+                    return verificationResult;
+                }
             }
         }
 

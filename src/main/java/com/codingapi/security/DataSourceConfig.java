@@ -2,11 +2,13 @@ package com.codingapi.security;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.codingapi.security.db.DataSourceProxy;
-import com.lorne.core.framework.utils.config.ConfigHelper;
+import com.codingapi.security.utils.SecurityConfig;
+import com.codingapi.security.utils.SecurityConfigUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * create by lorne on 2017/8/17
@@ -15,19 +17,16 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
 
-    private ConfigHelper configHelper;
-
-    public DataSourceConfig() {
-        configHelper = new ConfigHelper("db.properties");
-    }
-
     public void reloadDataSource(){
-        String [] names = configHelper.getStringValue("db.name").split(",");
-        for(String name:names){
+
+        Map<String,SecurityConfig> securityConfigMap =  SecurityConfigUtils.getInstance().getSecurityConfigs();
+
+        for(String name:securityConfigMap.keySet()){
+            SecurityConfig securityConfig = securityConfigMap.get(name);
             DruidDataSource dataSource = new DruidDataSource();
-            dataSource.setUrl(configHelper.getStringValue(String.format("%s.datasource.url",name)));
-            dataSource.setUsername(configHelper.getStringValue(String.format("%s.datasource.username",name)));//用户名
-            dataSource.setPassword(configHelper.getStringValue(String.format("%s.datasource.password",name)));//密码
+            dataSource.setUrl(securityConfig.getDbUrl());
+            dataSource.setUsername(securityConfig.getDbUsername());//用户名
+            dataSource.setPassword(securityConfig.getDbPassword());//密码
             dataSource.setInitialSize(3);
             dataSource.setMaxActive(5);
             dataSource.setMinIdle(0);
