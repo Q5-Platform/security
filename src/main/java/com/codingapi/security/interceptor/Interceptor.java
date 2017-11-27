@@ -1,9 +1,9 @@
 package com.codingapi.security.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.codingapi.security.model.Config;
+import com.codingapi.security.utils.NoTokenUtils;
 import com.codingapi.security.model.TokenUser;
-import com.codingapi.security.utils.RedisHelp;
+import com.codingapi.security.redis.RedisHelper;
 import com.lorne.core.framework.Code;
 import com.lorne.core.framework.model.Msg;
 import com.lorne.core.framework.model.Response;
@@ -30,7 +30,7 @@ public class Interceptor implements  HandlerInterceptor {
 
 
     @Autowired
-    private RedisHelp rh;
+    private RedisHelper rh;
 
     @Value("${server.contextPath}")
     private String path;
@@ -64,8 +64,8 @@ public class Interceptor implements  HandlerInterceptor {
 
 
         String token = ServletRequestUtils.getStringParameter(request, "token", "");
-        // noToken 接口
-        List<String> noTokenUrls = Config.noToken;
+        // urls 接口
+        List<String> noTokenUrls = NoTokenUtils.urls;
         for(int i = 0; i < noTokenUrls.size() ; i++ ){
             if(!noTokenUrls.get(i).equals("")){
                 String action = noTokenUrls.get(i);

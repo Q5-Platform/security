@@ -1,6 +1,6 @@
 package com.codingapi.security.interceptor;
 
-import com.codingapi.security.security.db.DataSourceProxy;
+import com.codingapi.security.db.DataSourceProxy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,7 +19,7 @@ public class DbChangeInterceptor implements Ordered {
         return 1;
     }
 
-    @Around("execution(* com.codingapi.security.security.service.impl.*Impl.*(..))")
+    @Around("execution(* com.codingapi.security.service.impl.*Impl.*(..))")
     public Object around(ProceedingJoinPoint point)throws Throwable{
         if(DbNameLocal.current()!=null){
             DataSourceProxy.changeDb(DbNameLocal.current().getKey());

@@ -1,7 +1,7 @@
 package com.codingapi.security;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.codingapi.security.security.db.DataSourceProxy;
+import com.codingapi.security.db.DataSourceProxy;
 import com.lorne.core.framework.utils.config.ConfigHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
