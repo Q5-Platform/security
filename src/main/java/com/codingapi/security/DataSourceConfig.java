@@ -22,14 +22,14 @@ public class DataSourceConfig {
     }
 
     public void reloadDataSource(){
-        String [] names = configHelper.getStringArrayValue("db.name");
+        String [] names = configHelper.getStringValue("db.name").split(",");
         for(String name:names){
             DruidDataSource dataSource = new DruidDataSource();
             dataSource.setUrl(configHelper.getStringValue(String.format("%s.datasource.url",name)));
             dataSource.setUsername(configHelper.getStringValue(String.format("%s.datasource.username",name)));//用户名
             dataSource.setPassword(configHelper.getStringValue(String.format("%s.datasource.password",name)));//密码
             dataSource.setInitialSize(3);
-            dataSource.setMaxActive(20);
+            dataSource.setMaxActive(5);
             dataSource.setMinIdle(0);
             dataSource.setMaxWait(60000);
             dataSource.setValidationQuery("SELECT 1");
@@ -45,11 +45,6 @@ public class DataSourceConfig {
         DataSourceProxy dataSourceProxy = new DataSourceProxy();
         reloadDataSource();
         return dataSourceProxy;
-    }
-
-
-    public static void main(String[] args) {
-
     }
 
 

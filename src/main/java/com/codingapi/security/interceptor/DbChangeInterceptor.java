@@ -19,7 +19,7 @@ public class DbChangeInterceptor implements Ordered {
         return 1;
     }
 
-    @Around("execution(* com.lorne.security.service.impl.*Impl.*(..))")
+    @Around("execution(* com.codingapi.security.security.service.impl.*Impl.*(..))")
     public Object around(ProceedingJoinPoint point)throws Throwable{
         if(DbNameLocal.current()!=null){
             DataSourceProxy.changeDb(DbNameLocal.current().getKey());

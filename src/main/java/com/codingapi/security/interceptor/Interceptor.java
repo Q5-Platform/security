@@ -9,6 +9,7 @@ import com.lorne.core.framework.model.Msg;
 import com.lorne.core.framework.model.Response;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,6 +31,10 @@ public class Interceptor implements  HandlerInterceptor {
 
     @Autowired
     private RedisHelp rh;
+
+    @Value("${server.contextPath}")
+    private String path;
+
 
 
     private void outJson(HttpServletResponse response, String msg, int code) throws Exception {
@@ -59,7 +64,7 @@ public class Interceptor implements  HandlerInterceptor {
 
 
         String token = ServletRequestUtils.getStringParameter(request, "token", "");
-//      noToken 接口
+        // noToken 接口
         List<String> noTokenUrls = Config.noToken;
         for(int i = 0; i < noTokenUrls.size() ; i++ ){
             if(!noTokenUrls.get(i).equals("")){
@@ -91,10 +96,11 @@ public class Interceptor implements  HandlerInterceptor {
             return  false;
         }
 
+        String currentUrl = getCurrentUrl(url);
+
         for(Map<String,Object> sr : list){
            String cUrl =  sr.get("url").toString();
-            String sUrl = url.substring(url.length() - cUrl.length()  , url.length());
-            if(cUrl.equals(sUrl)){
+            if(currentUrl.equals(cUrl)){
                 return  true;
             }
 
@@ -102,6 +108,15 @@ public class Interceptor implements  HandlerInterceptor {
 
         outJson(response, "你没有权限获取该资源！", Code.code_error);
         return false;// 只有返回true才会继续向下执行，返回false取消当前请求
+    }
+
+
+    private String getCurrentUrl(String url){
+        url = url.replace(path,"");
+
+        url =  url.substring(url.indexOf("_/")+1,url.length());
+
+        return url;
     }
 
 
@@ -125,19 +140,6 @@ public class Interceptor implements  HandlerInterceptor {
     }
 
 
-    public static void main(String[] args) {
-        String url ="/security/db_security_/admin/login";
-
-        Pattern pattern = Pattern.compile("/db_.*_/");
-
-        Matcher matcher = pattern.matcher(url);
-        System.out.println( matcher.find());
-
-        String str =  matcher.group();
-        System.out.println(str);
-//      String str1 = str.substring(str.indexOf("_") , str.length() );
-//      System.out.println(str1);
-    }
 
 
 
