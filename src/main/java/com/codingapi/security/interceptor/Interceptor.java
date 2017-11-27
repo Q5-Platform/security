@@ -1,6 +1,7 @@
 package com.codingapi.security.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.codingapi.security.db.DataSourceLocal;
 import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.utils.SecurityConfig;
@@ -56,9 +57,9 @@ public class Interceptor implements  HandlerInterceptor {
 
         String dbName = SecurityConfigUtils.getInstance().getDbName(url);
         if(StringUtils.isNotEmpty(dbName)){
-            DbNameLocal dbNameLocal = new DbNameLocal();
+            DataSourceLocal dbNameLocal = new DataSourceLocal();
             dbNameLocal.setKey(dbName);
-            DbNameLocal.setCurrent(dbNameLocal);
+            DataSourceLocal.setCurrent(dbNameLocal);
         }
 
         SecurityConfig securityConfig =  SecurityConfigUtils.getInstance().getSecurityConfig(dbName);

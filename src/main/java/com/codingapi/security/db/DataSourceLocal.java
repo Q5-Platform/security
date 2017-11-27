@@ -3,28 +3,28 @@ package com.codingapi.security.db;
 /**
  * create by lorne on 2017/11/8
  */
- class DataSourceLocal {
+ public class DataSourceLocal {
 
 
     private final static ThreadLocal<DataSourceLocal> currentLocal = new ThreadLocal<DataSourceLocal>();
 
 
-    static DataSourceLocal current() {
+    public static DataSourceLocal current() {
         return currentLocal.get();
     }
 
-    static void setCurrent(DataSourceLocal current) {
+    public static void setCurrent(DataSourceLocal current) {
         currentLocal.set(current);
     }
 
     private String key;
 
 
-    String getKey() {
+    public String getKey() {
         return key;
     }
 
-    void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 }
