@@ -2,7 +2,7 @@ package com.codingapi.security.db.dao.impl;
 
 
 import com.codingapi.security.db.entity.SAdmin;
-import com.codingapi.security.db.dao.UserDao;
+import com.codingapi.security.db.dao.SUserDao;
 import com.lorne.core.framework.exception.ServiceException;
 
 import com.lorne.core.framework.model.Page;
@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/16.
  */
 @Repository
-public class UserDaoImpl extends BaseDaoImpl<SAdmin> implements UserDao {
+public class SUserDaoImpl extends BaseDaoImpl<SAdmin> implements SUserDao {
 
 
 

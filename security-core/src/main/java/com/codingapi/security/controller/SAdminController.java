@@ -1,6 +1,6 @@
 package com.codingapi.security.controller;
 
-import com.codingapi.security.service.UserService;
+import com.codingapi.security.service.SUserService;
 import com.codingapi.security.ContentController;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
@@ -20,12 +20,12 @@ import java.util.Map;
 @Api(description = "用户模块")
 @RestController
 @RequestMapping(ContentController.ADMIN)
-public class AdminController  {
+public class SAdminController {
 
 
 
     @Autowired
-    private UserService userService;
+    private SUserService userService;
 
 
     /**

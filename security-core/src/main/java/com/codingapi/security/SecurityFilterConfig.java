@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * create by lorne on 2017/12/6
  */
 @Configuration
-public class FilterConfig {
+public class SecurityFilterConfig {
 
 
 

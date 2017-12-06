@@ -1,6 +1,6 @@
 package com.codingapi.security.controller;
 
-import com.codingapi.security.DataSourceConfig;
+import com.codingapi.security.SecurityDataSourceConfig;
 import com.codingapi.security.ContentController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "重新加载Db链接")
 @RestController
 @RequestMapping(ContentController.DBREFRESH)
-public class DbRefreshController {
+public class SDbRefreshController {
 
 
     /**
@@ -23,7 +23,7 @@ public class DbRefreshController {
     @ApiOperation(value="重新加载Db链接")
     @RequestMapping( value= "/refresh" , method = {RequestMethod.POST} )
     public boolean refresh( ){
-        DataSourceConfig dsc = new DataSourceConfig();
+        SecurityDataSourceConfig dsc = new SecurityDataSourceConfig();
         dsc.dataSource();
         return true;
     }

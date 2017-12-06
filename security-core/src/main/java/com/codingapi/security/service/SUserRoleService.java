@@ -13,7 +13,7 @@ import java.util.Map;
  * 用户权限Service接口
  * Created by ludaidai on 2015/8/14.
  */
-public interface UserRoleService {
+public interface SUserRoleService {
 
     /**
      * 分页查询用户权限

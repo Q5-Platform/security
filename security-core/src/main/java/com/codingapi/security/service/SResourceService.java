@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by houcunlu on 2017/8/16.
  */
-public interface ResourceService {
+public interface SResourceService {
 
 
 

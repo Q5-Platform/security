@@ -2,7 +2,7 @@ package com.codingapi.security.service.impl;
 
 import com.codingapi.security.db.dao.SRoleDao;
 import com.codingapi.security.db.entity.SRole;
-import com.codingapi.security.service.RoleService;
+import com.codingapi.security.service.SRoleService;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import org.apache.commons.lang.StringUtils;
@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/21.
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class SRoleServiceImpl implements SRoleService {
 
 
     @Autowired

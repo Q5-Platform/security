@@ -1,7 +1,7 @@
 package com.codingapi.security.db.dao.impl;
 
 import com.codingapi.security.db.entity.SResource;
-import com.codingapi.security.db.dao.ResourceDao;
+import com.codingapi.security.db.dao.SResourceDao;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import com.lorne.mysql.framework.dao.impl.BaseDaoImpl;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/16.
  */
 @Repository
-public class ResourceDaoImpl extends BaseDaoImpl<SResource> implements ResourceDao {
+public class SResourceDaoImpl extends BaseDaoImpl<SResource> implements SResourceDao {
 
 
     /**
@@ -111,10 +111,7 @@ public class ResourceDaoImpl extends BaseDaoImpl<SResource> implements ResourceD
 
     @Override
     public List<SResource> findAllResourceNoRightByAdminId(Integer id) {
-        String sql = "SELECT DISTINCT res.* FROM  s_resource res  " +
-                "JOIN   s_role_resource  srr  ON res.id = srr.re_id " +
-                "JOIN  s_user_role sur ON sur.rid = srr.ro_id  " +
-                "WHERE res.type = 0 and res.status = 1 and sur.aId = ? ORDER BY res.ordernum DESC ";
+        String sql = "SELECT DISTINCT res.* FROM  s_resource res   JOIN   s_role_resource  srr  ON res.id = srr.re_id  JOIN  s_user_role sur ON sur.rid = srr.ro_id   WHERE res.type = 0 and res.status = 1 and sur.aId = ? ORDER BY res.ordernum DESC ";
         return queryForBeanList(sql, id);
     }
 

@@ -5,9 +5,9 @@ import com.codingapi.security.db.dao.SUserRoleDao;
 import com.codingapi.security.db.entity.SAdmin;
 import com.codingapi.security.db.entity.SUserRole;
 import com.codingapi.security.model.TokenUser;
-import com.codingapi.security.db.dao.ResourceDao;
-import com.codingapi.security.db.dao.UserDao;
-import com.codingapi.security.service.UserService;
+import com.codingapi.security.db.dao.SResourceDao;
+import com.codingapi.security.db.dao.SUserDao;
+import com.codingapi.security.service.SUserService;
 import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.utils.RegexUtils;
 import com.lorne.core.framework.exception.ServiceException;
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * Created by houcunlu on 2017/8/15.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class SUserServiceImpl implements SUserService {
 
 
 
@@ -37,11 +37,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    private ResourceDao resourcedao;
+    private SResourceDao resourcedao;
 
 
     @Autowired
-    private UserDao userDao;
+    private SUserDao userDao;
 
 
     @Autowired

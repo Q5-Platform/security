@@ -17,9 +17,9 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 @EnableAutoConfiguration
-public class RedisConfig {
+public class SecurityRedisConfig {
 
-    private static Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+    private static Logger logger = LoggerFactory.getLogger(SecurityRedisConfig.class);
 
     @Bean
     @ConfigurationProperties(prefix = "spring.redis")

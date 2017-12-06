@@ -1,9 +1,9 @@
 package com.codingapi.security.controller;
 
 import com.codingapi.security.ContentController;
-import com.codingapi.security.service.RoleService;
-import com.codingapi.security.service.UserService;
-import com.codingapi.security.service.UserRoleService;
+import com.codingapi.security.service.SRoleService;
+import com.codingapi.security.service.SUserService;
+import com.codingapi.security.service.SUserRoleService;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import com.lorne.core.framework.utils.JsonUtils;
@@ -28,15 +28,15 @@ public class SUserRoleController {
 
 
     @Autowired
-    private UserRoleService userRoleService;
+    private SUserRoleService userRoleService;
 
 
     @Autowired
-    private RoleService roleService;
+    private SRoleService roleService;
 
 
     @Autowired
-    private UserService userService;
+    private SUserService userService;
 
 
     /**

@@ -8,7 +8,9 @@ import com.lorne.mysql.framework.dao.impl.JdbcTemplateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.Map;
  * create by lorne on 2017/8/17
  */
 @Configuration
-public class DataSourceConfig {
+public class SecurityDataSourceConfig {
 
 
     @Autowired
@@ -53,11 +55,12 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSourceProxy dataSource() {
         DataSourceProxy dataSourceProxy = new DataSourceProxy();
         reloadDataSource();
         return dataSourceProxy;
     }
+
 
 
 }

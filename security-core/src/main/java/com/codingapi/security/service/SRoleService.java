@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by houcunlu on 2017/8/21.
  */
-public interface RoleService {
+public interface SRoleService {
 
 
     /**

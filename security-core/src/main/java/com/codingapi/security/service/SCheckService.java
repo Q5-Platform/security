@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by houcunlu on 2017/8/15.
  */
-public interface CheckService {
+public interface SCheckService {
 
 
     VerificationResult execute(HttpServletRequest request, String url);

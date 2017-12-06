@@ -1,7 +1,7 @@
 package com.codingapi.security.controller;
 
 import com.codingapi.security.ContentController;
-import com.codingapi.security.service.RoleService;
+import com.codingapi.security.service.SRoleService;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import com.lorne.core.framework.utils.JsonUtils;
@@ -24,7 +24,7 @@ public class SRoleController  {
 
 
     @Autowired
-    private RoleService roleService;
+    private SRoleService roleService;
 
 
     /**

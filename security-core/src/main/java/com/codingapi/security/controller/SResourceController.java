@@ -3,7 +3,7 @@ package com.codingapi.security.controller;
 import com.codingapi.security.model.MenuTree;
 import com.codingapi.security.ContentController;
 import com.codingapi.security.db.entity.SResource;
-import com.codingapi.security.service.ResourceService;
+import com.codingapi.security.service.SResourceService;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import com.lorne.core.framework.utils.JsonUtils;
@@ -25,12 +25,12 @@ import java.util.Map;
 @Api(description = "资源模块")
 @RestController
 @RequestMapping(ContentController.RESOURCE)
-public class ResourceController {
+public class SResourceController {
 
 
 
     @Autowired
-    private ResourceService resourceService;
+    private SResourceService resourceService;
 
 
     /**

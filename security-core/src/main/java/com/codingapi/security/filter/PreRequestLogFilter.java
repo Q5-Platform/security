@@ -1,7 +1,7 @@
 package com.codingapi.security.filter;
 
 import com.codingapi.security.model.VerificationResult;
-import com.codingapi.security.service.CheckService;
+import com.codingapi.security.service.SCheckService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class PreRequestLogFilter extends ZuulFilter {
     private final static String ERROR_MSG_FORMAT = "{\"state\":0,\"res\":null,\"msg\":\"%s\"}";
 
     @Autowired
-    private CheckService checkService;
+    private SCheckService checkService;
 
 
     private static final Logger logger = LoggerFactory.getLogger(PreRequestLogFilter.class);

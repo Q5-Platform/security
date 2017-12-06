@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.model.VerificationResult;
 import com.codingapi.security.redis.RedisHelper;
-import com.codingapi.security.service.CheckService;
+import com.codingapi.security.service.SCheckService;
 import com.codingapi.security.utils.SecurityConfig;
 import com.codingapi.security.utils.SecurityConfigUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/15.
  */
 @Service
-public class CheckServiceImpl implements CheckService {
+public class SCheckServiceImpl implements SCheckService {
 
 
     @Value("${server.contextPath}")

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by houcunlu on 2017/8/16.
  */
-public interface ResourceDao extends BaseDao<SResource> {
+public interface SResourceDao extends BaseDao<SResource> {
 
 
     List<Map<String,Object>> findUserResourceByUserId(int userId);

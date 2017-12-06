@@ -3,13 +3,13 @@ package com.codingapi.security.service.impl;
 
 import com.codingapi.security.model.MenuTree;
 import com.codingapi.security.model.Tree;
-import com.codingapi.security.db.dao.ResourceDao;
+import com.codingapi.security.db.dao.SResourceDao;
 import com.codingapi.security.db.dao.SRoleResourceDao;
 import com.codingapi.security.db.entity.SAdmin;
 import com.codingapi.security.db.entity.SResource;
 import com.codingapi.security.db.entity.SRoleResource;
-import com.codingapi.security.db.dao.UserDao;
-import com.codingapi.security.service.ResourceService;
+import com.codingapi.security.db.dao.SUserDao;
+import com.codingapi.security.service.SResourceService;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import org.apache.commons.lang.StringUtils;
@@ -25,15 +25,15 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/16.
  */
 @Service
-public class ResourceServiceImpl implements ResourceService {
+public class SResourceServiceImpl implements SResourceService {
 
 
 
     @Autowired
-    private ResourceDao resourceDao;
+    private SResourceDao resourceDao;
 
     @Autowired
-    private UserDao userDao;
+    private SUserDao userDao;
 
     @Autowired
     private SRoleResourceDao sRoleResourceDao;

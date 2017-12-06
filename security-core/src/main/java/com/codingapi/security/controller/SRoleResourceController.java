@@ -5,8 +5,8 @@ import com.lorne.core.framework.model.Page;
 import com.lorne.core.framework.utils.JsonUtils;
 import com.codingapi.security.model.Tree;
 import com.codingapi.security.ContentController;
-import com.codingapi.security.service.ResourceService;
-import com.codingapi.security.service.RoleService;
+import com.codingapi.security.service.SResourceService;
+import com.codingapi.security.service.SRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,11 +29,11 @@ public class SRoleResourceController {
 
 
     @Autowired
-    private RoleService roleService;
+    private SRoleService roleService;
 
 
     @Autowired
-    private ResourceService resourceService;
+    private SResourceService resourceService;
 
 
 

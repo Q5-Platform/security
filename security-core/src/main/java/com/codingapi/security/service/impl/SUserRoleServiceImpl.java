@@ -2,7 +2,7 @@ package com.codingapi.security.service.impl;
 
 import com.codingapi.security.db.dao.SUserRoleDao;
 import com.codingapi.security.db.entity.SUserRole;
-import com.codingapi.security.service.UserRoleService;
+import com.codingapi.security.service.SUserRoleService;
 import com.codingapi.security.utils.RegexUtils;
 import com.lorne.core.framework.exception.DBException;
 import com.lorne.core.framework.exception.ServiceException;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by chentao on 2015/9/9.
  */
 @Service
-public class UserRoleServiceImpl implements UserRoleService {
+public class SUserRoleServiceImpl implements SUserRoleService {
 
     @Autowired
     private SUserRoleDao sUserRoleDao;
