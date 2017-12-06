@@ -26,7 +26,7 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lorne.security.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.codingapi.security.controller"))
                 .build();
     }
 

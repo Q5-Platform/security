@@ -4,8 +4,11 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.codingapi.security.db.DataSourceProxy;
 import com.codingapi.security.utils.SecurityConfig;
 import com.codingapi.security.utils.SecurityConfigUtils;
+import com.lorne.mysql.framework.dao.impl.JdbcTemplateProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -17,11 +20,21 @@ import java.util.Map;
 public class DataSourceConfig {
 
 
-    public void reloadDataSource(){
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-        Map<String,SecurityConfig> securityConfigMap =  SecurityConfigUtils.getInstance().getSecurityConfigs();
 
-        for(String name:securityConfigMap.keySet()){
+    @Bean
+    public JdbcTemplateProxy jdbcTemplateProxy() {
+        JdbcTemplateProxy jdbcTemplateProxy = new JdbcTemplateProxy();
+        jdbcTemplateProxy.setJdbcTemplate(jdbcTemplate);
+        return jdbcTemplateProxy;
+    }
+
+
+    public void reloadDataSource() {
+        Map<String, SecurityConfig> securityConfigMap = SecurityConfigUtils.getInstance().getSecurityConfigs();
+        for (String name : securityConfigMap.keySet()) {
             SecurityConfig securityConfig = securityConfigMap.get(name);
             DruidDataSource dataSource = new DruidDataSource();
             dataSource.setUrl(securityConfig.getDbUrl());
@@ -35,7 +48,7 @@ public class DataSourceConfig {
             dataSource.setTestOnBorrow(false);
             dataSource.setTestWhileIdle(true);
             dataSource.setPoolPreparedStatements(false);
-            DataSourceProxy.addDataSource(name,dataSource);
+            DataSourceProxy.addDataSource(name, dataSource);
         }
     }
 
