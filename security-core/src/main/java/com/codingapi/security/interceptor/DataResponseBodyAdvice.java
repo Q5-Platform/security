@@ -1,5 +1,10 @@
-package com.codingapi.security.model;
+package com.codingapi.security.interceptor;
 
+import com.codingapi.security.annotation.DefaultResponse;
+import com.codingapi.security.model.Msg;
+import com.codingapi.security.model.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -15,8 +20,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class DataResponseBodyAdvice implements ResponseBodyAdvice {
 
 
+    private Logger logger = LoggerFactory.getLogger(DataResponseBodyAdvice.class);
+
     @Override
-    public boolean supports(MethodParameter methodParameter, Class aClass) {
+    public boolean supports(MethodParameter returnType, Class aClass) {
+        Class controller =  returnType.getMethod().getDeclaringClass();
+        DefaultResponse noControllerAdvice = (DefaultResponse) controller.getAnnotation(DefaultResponse.class);
+        String className = controller.getName();
+        logger.info("supports - className >" +className +", NoControllerAdvice - > "+noControllerAdvice);
+        if(noControllerAdvice!=null){
+            return false;
+        }
         return true;
     }
 
@@ -28,7 +42,10 @@ public class DataResponseBodyAdvice implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
+        logger.info("beforeBodyWrite - >" +body );
+
         String swaggerClass = returnType.getMethod().getDeclaringClass().getName();
+
         if( swaggerClass.equals("springfox.documentation.swagger.web.ApiResourceController") ||
             swaggerClass.equals("springfox.documentation.swagger2.web.Swagger2Controller") ){
             return  body;
@@ -47,6 +64,7 @@ public class DataResponseBodyAdvice implements ResponseBodyAdvice {
         if("Page".equals(url.substring(url.length()-4))){
             return  body;
         }
+
 
 
         Response res = new Response();

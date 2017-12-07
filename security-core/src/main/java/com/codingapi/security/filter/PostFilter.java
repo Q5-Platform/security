@@ -7,6 +7,8 @@ import com.lorne.core.framework.model.Response;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,9 @@ import java.io.InputStream;
  */
 public class PostFilter extends ZuulFilter {
 
+
+
+    private Logger logger = LoggerFactory.getLogger(PostFilter.class);
 
     @Override
     public String filterType() {
@@ -46,9 +51,12 @@ public class PostFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         String url = request.getRequestURI();
 
+        logger.info("run-url->"+url);
+
         if("Page".equals(url.substring(url.length()-4))){
             return  null;
         }
+
 
         // 不需要任何 数据封装的地址
         if(response.getStatus() != 200){

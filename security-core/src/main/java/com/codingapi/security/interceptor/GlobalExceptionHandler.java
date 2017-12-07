@@ -1,7 +1,12 @@
-package com.codingapi.security.model;
+package com.codingapi.security.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.codingapi.security.model.Msg;
+import com.codingapi.security.model.Response;
 import com.lorne.core.framework.exception.ServiceException;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -14,9 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(value = Exception.class)
-    public String  jsonErrorHandler( HttpServletResponse response, HttpServletRequest req, Exception e) throws Exception {
+    public String  exceptionHandler( HttpServletResponse response, HttpServletRequest req,Object handler, Exception e) throws Exception {
+
+        logger.info("exceptionHandler->"+e+",handler->"+handler);
+
+        Object isDefaultResponse =  req.getAttribute("isDefaultResponse");
+        if(isDefaultResponse!=null){
+            throw e;
+        }
+
         Response res = new Response();
         res.setCode(40010);
         if ( e instanceof ServiceException) {

@@ -37,6 +37,7 @@ public class SecurityInterceptor implements  HandlerInterceptor {
 
 
     private void outJson(HttpServletResponse response, String msg, int code) throws Exception {
+        logger.info("response -> "+msg);
         Response res = new Response();
         res.setCode(code);
         res.setMsg(msg);

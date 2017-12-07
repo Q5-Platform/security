@@ -27,7 +27,16 @@ public class InterceptorConfigurer extends WebMvcConfigurerAdapter {
         return new DbChangeInterceptor();
     }
 
+    public ExceptionInterceptor exceptionInterceptor(){
+        return new ExceptionInterceptor();
+    }
+
     public void addInterceptors(InterceptorRegistry registry) {
+
+        InterceptorRegistration exceptionInterceptor = registry.addInterceptor(exceptionInterceptor());
+        // 拦截配置
+        exceptionInterceptor.addPathPatterns("/**");
+
 
         InterceptorRegistration dbChangeInterceptor = registry.addInterceptor(dbChangeInterceptor());
         // 拦截配置

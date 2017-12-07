@@ -91,7 +91,7 @@ public class SResourceDaoImpl extends BaseDaoImpl<SResource> implements SResourc
      */
     @Override
     public List<SResource> findAllResourceBySuperId(String id) {
-        String sql ="  select * from  s_resource  where status=1 and super_id=? order by ordernum desc ";
+        String sql ="  select * from  s_resource  where status=1  and super_id=? order by ordernum desc ";
         return queryForBeanList(sql , id);
     }
 
