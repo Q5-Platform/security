@@ -1,5 +1,6 @@
 package com.codingapi.security.interceptor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -13,21 +14,33 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class InterceptorConfigurer extends WebMvcConfigurerAdapter {
 
 
+    @Value("${server.contextPath}")
+    private String contextPath;
 
     @Bean
-    public Interceptor Interceptor() {
-        return new Interceptor();
+    public SecurityInterceptor securityInterceptor() {
+        return new SecurityInterceptor();
     }
 
+    @Bean
+    public DbChangeInterceptor dbChangeInterceptor() {
+        return new DbChangeInterceptor();
+    }
 
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration addInterceptor = registry.addInterceptor(Interceptor());
+
+        InterceptorRegistration dbChangeInterceptor = registry.addInterceptor(dbChangeInterceptor());
+        // 拦截配置
+        dbChangeInterceptor.addPathPatterns("/**");
+
+        InterceptorRegistration securityInterceptor = registry.addInterceptor(securityInterceptor());
 
         // 排除配置
-        addInterceptor.excludePathPatterns("/error");
+        securityInterceptor.excludePathPatterns("/error");
 
         // 拦截配置
-        addInterceptor.addPathPatterns("/**");
+        securityInterceptor.addPathPatterns(contextPath+"/security/**");
+
     }
 
 }

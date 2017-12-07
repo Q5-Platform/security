@@ -6,15 +6,13 @@ package com.codingapi.security;
 public interface ContentController {
 
 
+
+       String  WEB = "/security/{db_security_}";
+
        /**
         *重新加载Db链接
         */
        String DBREFRESH = "/dbRefresh";
-
-
-
-
-       String  WEB = "/{db_security_}";
 
 
        String ADMIN = WEB+"/admin";

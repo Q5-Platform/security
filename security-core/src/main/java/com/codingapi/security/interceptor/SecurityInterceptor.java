@@ -1,7 +1,6 @@
 package com.codingapi.security.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.codingapi.security.db.DataSourceLocal;
 import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.utils.SecurityConfig;
@@ -10,8 +9,9 @@ import com.lorne.core.framework.Code;
 import com.lorne.core.framework.model.Msg;
 import com.lorne.core.framework.model.Response;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,15 +26,14 @@ import java.util.Map;
  * Created by houcunlu on 2017/8/16.
  */
 @Component
-public class Interceptor implements  HandlerInterceptor {
-
+public class SecurityInterceptor implements  HandlerInterceptor {
 
     @Autowired
     private RedisHelper rh;
 
-    @Value("${server.contextPath}")
-    private String path;
+    private Logger logger = LoggerFactory.getLogger(SecurityInterceptor.class);
 
+    private String path = "security";
 
 
     private void outJson(HttpServletResponse response, String msg, int code) throws Exception {
@@ -54,14 +53,7 @@ public class Interceptor implements  HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
         String  url = request.getRequestURI();
-
         String dbName = SecurityConfigUtils.getInstance().getDbName(url);
-        if(StringUtils.isNotEmpty(dbName)){
-            DataSourceLocal dbNameLocal = new DataSourceLocal();
-            dbNameLocal.setKey(dbName);
-            DataSourceLocal.setCurrent(dbNameLocal);
-        }
-
         SecurityConfig securityConfig =  SecurityConfigUtils.getInstance().getSecurityConfig(dbName);
 
         String token = ServletRequestUtils.getStringParameter(request, "token", "");

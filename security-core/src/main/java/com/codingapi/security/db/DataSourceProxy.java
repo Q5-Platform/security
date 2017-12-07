@@ -2,6 +2,8 @@ package com.codingapi.security.db;
 
 
 import com.lorne.core.framework.exception.ServiceException;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -19,7 +21,15 @@ import java.util.logging.Logger;
 
 public class DataSourceProxy implements DataSource {
 
+    private final  static org.slf4j.Logger logger = LoggerFactory.getLogger(DataSourceProxy.class);
+
     private static Map<String,DataSource> dataSources;
+
+    private static String defaultKey = "default";
+
+    public static void setDefaultKey(String key) {
+        defaultKey = key;
+    }
 
     public DataSourceProxy() {
         dataSources = new ConcurrentHashMap<String, DataSource>();
@@ -40,17 +50,34 @@ public class DataSourceProxy implements DataSource {
     }
 
     public static void addDataSource(String key,DataSource dataSource) {
+        logger.info("add key -> " +key);
         dataSources.put(key,dataSource);
+    }
+
+
+    private String getKey(){
+        if(DataSourceLocal.current()==null){
+            return defaultKey;
+        }
+        String key = DataSourceLocal.current().getKey();
+        if(StringUtils.isEmpty(key)){
+            key = defaultKey;
+        }
+        return key;
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-        return dataSources.get(DataSourceLocal.current().getKey()).getConnection();
+        String key =getKey();
+        logger.info("current key -> " +key);
+        return dataSources.get(key).getConnection();
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return dataSources.get(DataSourceLocal.current().getKey()).getConnection(username, password);
+        String key =getKey();
+        logger.info("current key -> " +key);
+        return dataSources.get(key).getConnection(username, password);
     }
 
     @Override
