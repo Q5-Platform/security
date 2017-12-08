@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
+    <link href="../../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css">
+    <link rel="stylesheet" href="../../../dist/css/skins/skin-blue.min.css">
+
+</head>
+
+<body>
+
+
+<div class="form-group" style="margin-top: 20px;margin-left: 5px">
+    <button type="button"  class="btn btn-default" id="export-excel">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        导入excel数据
+    </button>
+</div>
+
+
+<div class="form-inline " id="toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>年份: </span>
+             <select class="form-control" id="year" name="year">
+             </select>
+        </div>
+        <div class="form-group">
+            <input name="search" class="form-control" type="text" placeholder="输入关键字">
+        </div>
+        <button id="search" type="submit" class="btn btn-default">搜索</button>
+        <button id="refresh" type="button" class="btn btn-default">刷新</button>
+    </div>
+</div>
+
+<table id="table"
+       data-method="post"
+       data-toggle="table"
+       data-toolbar="#toolbar"
+       data-height="600"
+       data-side-pagination="server"
+       data-query-params="queryParams"
+       data-pagination="true"
+       data-page-list="[5, 10, 20, 50, 100, 200]"
+       data-url="http://127.0.0.1:8899/power/web/project/projectPage"
+        >
+    <thead>
+    <tr>
+        <th data-field="id">编号</th>
+        <th data-field="isId">标示</th>
+        <th data-field="projectName">项目名称</th>
+        <th data-field="time">电费年月</th>
+        <th data-field="projectId">项目编号</th>
+        <th data-field="createPower">发电量</th>
+        <th data-field="onLinePower">上网电量</th>
+        <th data-field="createPowerPrice">上网电价</th>
+        <th data-field="createPowerMoney">上网电费</th>
+        <th data-field="centralStandard">补助标准(中央)</th>
+        <th data-field="centralMoney">补助资金(中央)</th>
+        <th data-field="proviceStandard">补助标准(省)</th>
+        <th data-field="proviceMoney">补助资金(省)</th>
+        <th data-field="countMoney">合计</th>
+        <th data-formatter="operateFormatter" data-events="operateEvents">操作</th>
+    </tr>
+    </thead>
+</table>
+
+
+
+
+<!--删除角色-->
+<div class="modal-dialog modal-con" role="document" id='deleteModel'>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">删除数据</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="deleteModelId" />
+            <div class="form-group has-success">
+                <p class="text-danger" >确认要删除该数据嘛？</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&nbsp;
+            <button type="button" class="btn btn-primary" id="deleteData">确定</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!--修改角色信息-->
+<div class="side-right transtion"  id='editinfo'>
+    <div class="box box-info">
+        <div class="box-header">修改用户信息</div>
+        <div class="box-body">
+            <div  id="modifyUser">
+                <input id="upRoleId" type="hidden"  value="" />
+                <div class="form-group">
+                    <input type="hidden" class="form-control" name="id"  value=""  />
+                    <label>标示:</label>
+                    <input type="text" class="form-control" name="isId" value=""  />
+                    <label>项目名称:</label>
+                    <input type="text" class="form-control" name="projectName" value=""  />
+                    <label>电费年月:</label>
+                    <input type="text" class="form-control" name="time" value=""  />
+                    <label>项目编号:</label>
+                    <input type="text" class="form-control" name="projectId" value=""  />
+                    <label>发电量:</label>
+                    <input type="text" class="form-control" name="createPower" value=""  />
+                    <label>上网电量:</label>
+                    <input type="text" class="form-control" name="onLinePower" value=""  />
+                    <label>上网电价:</label>
+                    <input type="text" class="form-control" name="createPowerPrice" value=""  />
+                    <label>上网电费:</label>
+                    <input type="text" class="form-control" name="createPowerMoney" value=""  />
+                    <label>补助标准(中央):</label>
+                    <input type="text" class="form-control" name="centralStandard" value=""  />
+                    <label>补助资金(中央):</label>
+                    <input type="text" class="form-control" name="centralMoney" value=""  />
+                    <label>补助标准(省):</label>
+                    <input type="text" class="form-control" name="proviceStandard" value=""  />
+                    <label>补助资金(省):</label>
+                    <input type="text" class="form-control" name="proviceMoney" value=""  />
+                    <label>合计:</label>
+                    <input type="text" class="form-control" name="countMoney" value=""  />
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#editinfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="editinfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--导入数据-->
+<div id="export-div" class="side-right transtion" style="width: 80%" >
+    <div class="box box-info">
+        <div class="box-header">
+            <h3 class="box-title">导入数据</h3>
+        </div>
+        <div class="box-body">
+            <div >
+                <div>
+                    <label>格式说明:</label>
+                    <div class="text-danger">
+                        1、数据必须在excel的第一页。
+                        </br>
+                        2、数据中不允许包含汇总信息的数据。（例如 ：某某 汇总 ... ）
+                        </br>
+                        3、重复的数据将无法导入系统中。（重复的条件是：同一项目编号、同一时间（年月) ）
+                        </br>
+                        4、电费年月时间格式必须是："2017年02月"的格式，不得为"2017年2月"或者"2017.2"。
+                        </br>
+                        5、为了考虑系统的数据容量，项目数据是按年份拆分的数据库，因此导入的数据必须是在同一年内，跨年请分为两次导入。
+                        </br>
+                        6、若遇到数据导入错误提示，请先按照格式要求修改完数据以后再重新导入。
+                        </br>
+
+                        <a href="../../file/test.xls">模板格式</a>
+                    </div>
+                </div>
+
+
+                <form id="export-form" method="post" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <label>excel文件:</label>
+                    <input type="file" class="form-control" name="excel" value=""  />
+                </div>
+                </form>
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box-footer">
+        <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#export-div">关闭</button>&nbsp;
+        <button class="btn btn-primary" id="upload-file">导入数据</button>
+    </div>
+</div>
+</div>
+
+
+
+
+<!-- Modal -->
+<script src="../../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../../../plugins/jQuery/jquery.blockUI.min.js"></script>
+<script src="../../../plugins/jQuery/jquery.form.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../../bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="../../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+<!-- AdminLTE App -->
+<script src="../../../dist/js/app.min.js"></script>
+<script src="../../../js/common.js"></script>
+<!-- httpUtils -->
+<script src="../../../js/httpUtils.js"></script>
+<!-- 地址 -->
+<script src="../../../js/url.js"></script>
+<!-- 图片 -->
+<script src="../../../js/image.js"></script>
+<!-- hint -->
+<script src="../../../js/hint.js"></script>
+<!-- table -->
+
+
+<script src="../../js/excel/excel.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>

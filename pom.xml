@@ -13,6 +13,7 @@
     <modules>
         <module>security-core</module>
         <module>security-demo</module>
+        <module>security-lte</module>
     </modules>
 
     <properties>

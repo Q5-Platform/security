@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" href="../../dist/css/skins/skin-blue.min.css">
+</head>
+
+<body>
+
+<div class="form-inline" role="form" id="toolbar">
+    <button type="button"  class="btn btn-default" id="addAdmin">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        添加用户
+    </button>
+</div>
+
+    <div class="box">
+        <div class="box-header">用户列表</div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="table"
+                           data-method="post"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="true" data-show-refresh="true" data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <!--<th data-field="id">Id</th>-->
+                            <th data-field="photo" data-formatter="photo" >头像</th>
+                            <th data-field="userName">账户</th>
+                            <th data-field="enable" data-formatter="showEnable" >状态</th>
+                            <th data-field="created">创建时间</th>
+                            <th data-field="lastDate">最后登陆时间</th>
+                            <th data-formatter="operateFormatter" data-events="operateEvents">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--修改用户信息-->
+    <div class="side-right transtion"  id='editinfo'  >
+        <div class="box box-info">
+            <div class="box-header">修改用户信息</div>
+            <div class="box-body">
+                <form  id="modifyUser">
+                    <input id="upUserId" type="hidden" name="id"  value="" />
+                    <div class="form-group has-success">
+                        <label>账户:</label>
+                        <br>
+                        <input id="upUserName" class="form-control" name="userName"  check-type="required" required-message="年龄不能为空.">
+                    </div>
+                    <div class="form-group has-success">
+                        <label>头像:</label>
+                        <br>
+                        <img class="addImage" id="UpUserPhoto" width="100"   />
+                    </div>
+
+                </form>
+            </div>
+            <div class="box-footer">
+                <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#editinfo">关闭</button>
+                <button type="button" class="btn btn-primary" id="editinfo-btn" >保存</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--删除用户-->
+    <div class="modal-dialog modal-con" role="document" id='deleteUserModal'>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">删除用户</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="deleteUserId" />
+                <div class="form-group has-success">
+                    <p class="text-danger" >确认删除该用户嘛？</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&nbsp;
+                <button type="button" class="btn btn-primary" id="deleteUser">确定</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!--添加管理员-->
+<div id="addAdmin-div" class="side-right transtion">
+    <div class="box box-info">
+        <div class="box-header">
+            <h3 class="box-title">添加管理员</h3>
+        </div>
+        <div class="box-body">
+            <div  id="adminForm">
+                <div class="form-group">
+                    <label>账户:</label>
+                    <input type="text" class="form-control" id="addName" value=""  />
+                </div>
+                <div class="form-group">
+                    <label>用户密码:</label>
+                    <input type="text" class="form-control" id="addPwd" value="" />
+                </div>
+                <div class="form-group">
+                    <label>头像:</label>
+                    <br>
+                    <img class="addImage" id="addUserPhoto" width="100"   />
+                </div><!-- /.form group -->
+
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box-footer">
+        <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#addAdmin-div">关闭</button>&nbsp;
+        <button class="btn btn-primary" id="submit-admin">添加</button>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.blockUI.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.form.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- httpUtils -->
+    <script src="../../js/httpUtils.js"></script>
+    <!-- 地址 -->
+    <script src="../../js/url.js"></script>
+    <!-- 图片 -->
+    <script src="../../js/image.js"></script>
+    <!-- hint -->
+    <script src="../../js/hint.js"></script>
+
+    <script src="../../security/js/userlist.js"></script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

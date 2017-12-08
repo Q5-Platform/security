@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" href="../../dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/zTreeStyle/zTreeStyle.css"/>
+
+</head>
+
+<body>
+
+
+    <div class="box">
+        <div class="box-header">
+            角色资源
+            <div class="col-md-12 ">
+                <button type="button" class="btn btn-success pull-right" id="saveRoleResource">保存</button>
+                <input type="hidden" name="roId" id="roId"/>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <table id="table"
+                           data-method="post"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="false" data-show-refresh="false" data-show-toggle="false"
+                           data-show-columns="false">
+                        <thead>
+                        <tr>
+                            <th data-field="id">编号</th>
+                            <th data-field="name" >角色名称</th>
+                            <th data-formatter="operateFormatter" data-events="operateEvents">查看资源</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="col-sm-7">
+
+                    <div>
+                        <button class="btn btn-success" id="open">展开</button>
+                        &nbsp;
+                        <button class="btn btn-inverse" id="close">关闭</button>
+                    </div>
+                    <div class="zTreeDemoBackground left" style="margin-top: 15px">
+                        <ul id="jstree_demo_div" class="ztree" data-event="jstree_demo_div"></ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.blockUI.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.form.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+    <script src="../../plugins/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- httpUtils -->
+    <script src="../../js/httpUtils.js"></script>
+    <!-- 地址 -->
+    <script src="../../js/url.js"></script>
+    <!-- 图片 -->
+    <script src="../../js/image.js"></script>
+    <!-- hint -->
+    <script src="../../js/hint.js"></script>
+
+    <script src="../../security/js/roleResources.js"></script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

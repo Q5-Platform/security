@@ -5,8 +5,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.codingapi</groupId>
+    <version>1.0.0</version>
     <artifactId>seucrity-demo</artifactId>
-
 
     <parent>
         <groupId>org.springframework.cloud</groupId>
@@ -28,6 +29,12 @@
         <dependency>
             <groupId>com.codingapi</groupId>
             <artifactId>security-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codingapi</groupId>
+            <artifactId>security-lte</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

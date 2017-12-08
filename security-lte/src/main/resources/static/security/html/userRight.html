@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" href="../../dist/css/skins/skin-blue.min.css">
+</head>
+
+<body>
+
+<div class="form-inline" role="form" id="toolbar">
+    <button type="button"  class="btn btn-default" id="addUserRole">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        添加用户
+    </button>
+    <input type="hidden" class="glyphicon glyphicon-plus" id="rid">
+</div>
+
+
+    <div class="box">
+        <div class="box-header">用户权限关系</div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <table id="table"
+                           data-method="post"
+                           data-toggle="table"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="false" data-show-refresh="false" data-show-toggle="false"
+                           data-show-columns="false">
+                        <thead>
+                        <tr>
+                            <th data-field="id">权限编号</th>
+                            <th data-field="name" >权限名称</th>
+                            <th data-formatter="operateFormatter" data-events="operateEvents">查看用户</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="col-sm-6">
+                    <table id="userTable"
+                           data-method="post"
+                           data-toolbar="#toolbar"
+                           data-toggle="table"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="false" data-show-refresh="false" data-show-toggle="false"
+                           data-show-columns="false">
+                        <thead>
+                        <tr>
+                            <th data-field="aid">用户编号</th>
+                            <th data-field="user_name" >用户名称</th>
+                            <th data-formatter="userOperateFormatter" data-events="operateEvents">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="side-right transtion" id='s-searchinfo'>
+    <div class="box box-info">
+        <div class="box-header">添加角色用户</div>
+        <div class="box-body">
+
+            <table id="userAllTable"
+                   data-method="post"
+                   data-toggle="table"
+                   data-height="400"
+                   data-side-pagination="server">
+                <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-field="userName" data-events="operateEvents">用户名称</th>
+                </tr>
+                </thead>
+            </table>
+
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#s-searchinfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="save-searchinfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--删除角色-->
+<div class="modal-dialog modal-con" role="document" id='deleteRoleModal'>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">删除该用户</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="deleteUserId" />
+            <div class="form-group has-success">
+                <p class="text-danger" >确认删除该用户嘛？</p>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&nbsp;
+            <button type="button" class="btn btn-primary" id="deleteUser">确定</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <!-- Modal -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.blockUI.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.form.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- httpUtils -->
+    <script src="../../js/httpUtils.js"></script>
+    <!-- 地址 -->
+    <script src="../../js/url.js"></script>
+    <!-- 图片 -->
+    <script src="../../js/image.js"></script>
+    <!-- hint -->
+    <script src="../../js/hint.js"></script>
+
+    <script src="../../security/js/userRight.js"></script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

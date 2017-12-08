@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" href="../../dist/css/skins/skin-blue.min.css">
+
+
+</head>
+
+<body>
+
+<div class="form-inline" role="form" id="toolbar">
+    <div class="form-group">
+        <button type="button"  class="btn btn-default" id="addResource"  >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            添加资源
+        </button>
+    </div>
+    &nbsp;&nbsp;
+    <input type="hidden"  id="sid"/>
+    <div class="form-group" id="path">
+        <span style="color: #3D8EBC;cursor:pointer;" data-id="0" onclick="clearPathClick(0)">首页:&nbsp;&nbsp;</span>
+    </div>
+</div>
+
+
+    <div class="box">
+        <div class="box-header">资源列表</div>
+        <div class="box-body">
+            <div class="row">
+
+                <div class="col-sm-7">
+                    <table id="table"
+                           data-method="post"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="true" data-show-refresh="true" data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <!--<th data-field="id">编号</th>-->
+                            <th data-field="name"  data-formatter="nameFormatter" data-events="operateEvents"  >资源名称</th>
+                            <th data-formatter="iconFormatter">资源图标</th>
+                            <th data-field="url" >资源地址</th>
+                            <th data-field="code" >资源code</th>
+                            <th data-field="ordernum" data-formatter="orderNum"  >资源排序</th>
+                            <th data-formatter="operateFormatter" data-events="operateEvents">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="col-sm-5">
+                        <div class="form-inline" role="form" id="toolbar2">
+                            <h4 id="right-title">功能权限/接口资源</h4>
+
+                            <label>类型:</label>
+                            <select  class="form-control" id="resourceType" style="margin-right: 20px"  >
+                                <option  value="1">功能</option>
+                                <option  value="2">接口</option>
+                            </select>
+
+                            <input type="hidden"   value="0" id="rightId">
+                            <button type="button"  class="btn btn-default" id="addRight">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                添加功能
+                            </button>
+                        </div>
+                    <table id="rightTable"
+                           data-method="post"
+                           data-toggle="table"
+                           data-toolbar="#toolbar2"
+                           data-height="600"
+                           data-side-pagination="server">
+                        <thead>
+                        <tr>
+                            <th data-field="name">功能名称</th>
+                            <th data-field="code" >功能code</th>
+                            <th data-field="url" >地址</th>
+                            <th data-formatter="rightOperateFormatter" data-events="operateEvents">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<!--删除资源-->
+<div class="modal-dialog modal-con" role="document" id='deleteResourceModal'>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">删除资源</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="deleteResourceId" />
+            <div class="form-group has-success">
+                <p class="text-danger" >确认删除该资源嘛？</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&nbsp;
+            <button type="button" class="btn btn-primary" id="deleteResource">确定</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--修改资源信息-->
+<div class="side-right transtion"  id='editinfo'>
+    <div class="box box-info">
+        <div class="box-header">修改资源信息</div>
+        <div class="box-body">
+            <div >
+                <input id="upResourceId" type="hidden"  value="" />
+                <input id="upSuperId" type="hidden"  value="" />
+
+                <div class="form-group has-success">
+                    <label>资源名称:</label>
+                    <br>
+                    <input id="upRole" class="form-control"   />
+                </div>
+
+                <div class="form-group">
+                    <label>资源地址:</label>
+                    <input type="text" class="form-control" id="modify_address"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>资源CODE:</label>
+                    <input type="text" class="form-control" id="modify_code"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>图标:</label>
+                    <i data-event="icon" class="fa fa-circle-o" style="font-size: 18px;margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="modify_icon" type="hidden"  />
+                    <span data-target="#iconModal" data-to="modal" style="cursor: pointer">选择</span>
+                </div><!-- /.form group -->
+
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#editinfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="editinfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--修改功能信息-->
+<div class="side-right transtion"  id='editRightInfo'>
+    <div class="box box-info">
+        <div class="box-header">修改功能信息</div>
+        <div class="box-body">
+            <div >
+                <input id="upRightResourceId" type="hidden"  value="" />
+                <input id="upRightTypeResourceId" type="hidden"  value="" />
+
+                <div class="form-group has-success">
+                    <label>资源名称:</label>
+                    <br>
+                    <input id="upRightRole" class="form-control"   />
+                </div>
+
+                <div class="form-group">
+                    <label>资源地址:</label>
+                    <input type="text" class="form-control" id="modify_Right_address"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>资源CODE:</label>
+                    <input type="text" class="form-control" id="modify_Right_code"  />
+                </div><!-- /.form group -->
+
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#editRightInfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="edit-RightInfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--添加资源信息-->
+<div class="side-right transtion"  id='addinfo'>
+    <div class="box box-info">
+        <div class="box-header">添加资源信息</div>
+        <div class="box-body">
+            <div >
+                <div class="form-group has-success">
+                    <label>资源名称:</label>
+                    <br>
+                    <input id="addRole" class="form-control"   />
+                </div>
+
+                <div class="form-group">
+                    <label>资源地址:</label>
+                    <input type="text" class="form-control" id="add_address"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>资源CODE:</label>
+                    <input type="text" class="form-control" id="add_code"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>图标:</label>
+                    <i data-event="icon" class="fa fa-circle-o" style="font-size: 18px;margin-top: 10px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="add_icon" type="hidden"  />
+                    <span data-target="#iconModal" data-to="modal" style="cursor: pointer">选择</span>
+                </div><!-- /.form group -->
+
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#addinfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="addinfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- 添加功能信息  -->
+<div class="side-right transtion"  id='addRightDiv'>
+    <div class="box box-info">
+        <div class="box-header">添加功能信息</div>
+        <div class="box-body">
+            <div >
+                <div class="form-group has-success">
+                    <label>功能名称:</label>
+                    <br>
+                    <input type="text" id="addRightName" class="form-control"   />
+                </div>
+
+                <div class="form-group">
+                    <label>功能地址:</label>
+                    <input type="text" class="form-control" id="add_Right_address"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>功能CODE:</label>
+                    <input type="text" class="form-control" id="add_Right_code"  />
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label>类型:</label>
+                    <select  class="form-control" id="AddResourceType" style="margin-right: 20px"  >
+                        <option  value="1">功能</option>
+                        <option  value="2">接口</option>
+                    </select>
+                </div><!-- /.form group -->
+
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#addRightDiv">关闭</button>
+            <button type="button" class="btn btn-primary" id="addRightInfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!--修改资源排序-->
+<div class="side-right transtion"  id='upResourceDiv'>
+    <div class="box box-info">
+        <div class="box-header">修改资源排序</div>
+        <div class="box-body">
+            <form >
+                <input id="upId" type="hidden"  value="" />
+                <div class="form-group has-success">
+                    <label>资源排序:</label>
+                    <br>
+                    <input id="upNumber" class="form-control" />
+                </div>
+
+            </form>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#upResourceDiv">关闭</button>
+            <button type="button" class="btn btn-primary" id="upResourceDiv-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 选择图标 -->
+<div class="modal-dialog modal-con" role="document" id='iconModal'>
+    <div class="modal-content"  >
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">选择图标</h4>
+        </div>
+        <div class="modal-body" style="width: auto;height: 500px">
+            <iframe name="iconIframe" frameborder="0" width="100%" height="100%"   src="icon.html"></iframe>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" id="saveIcon-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.blockUI.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.form.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- httpUtils -->
+    <script src="../../js/httpUtils.js"></script>
+    <!-- 地址 -->
+    <script src="../../js/url.js"></script>
+    <!-- 图片 -->
+    <script src="../../js/image.js"></script>
+    <!-- hint -->
+    <script src="../../js/hint.js"></script>
+
+    <script src="../../security/js/resourcelist.js"></script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
+    <link href="../../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css">
+    <link rel="stylesheet" href="../../../dist/css/skins/skin-blue.min.css">
+
+</head>
+
+<body>
+
+<div class="form-inline" role="form" id="toolbar">
+    <button type="button"  class="btn btn-default" id="addUser">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        添加用户
+    </button>
+</div>
+
+
+<table id="table-user"
+    data-method="post"
+    data-toggle="table"
+    data-toolbar="#toolbar"
+    data-height="600"
+    data-side-pagination="server"
+    data-pagination="true"
+    data-page-list="[5, 10, 20, 50, 100, 200]"
+    data-search="true"
+    data-url="http://127.0.0.1:8899/power/web/user/userPage"
+    data-show-refresh="true"
+    data-show-toggle="true"
+    data-show-columns="true">
+    <thead>
+        <tr>
+            <th data-field="id">标识</th>
+            <th data-field="name">名称</th>
+            <th data-field="mobile">手机号</th>
+            <th data-field="projectId">项目编号</th>
+            <th data-formatter="operateFormatter" data-events="operateEvents">操作</th>
+        </tr>
+    </thead>
+</table>
+
+
+
+
+<!--删除角色-->
+<div class="modal-dialog modal-con" role="document" id='deleteUserModel'>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">删除用户</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="deleteUserId" />
+            <div class="form-group has-success">
+                <p class="text-danger" >确认要删除该用户嘛？</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>&nbsp;
+            <button type="button" class="btn btn-primary" id="deleteUser">确定</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!--修改角色信息-->
+<div class="side-right transtion"  id='editinfo'>
+    <div class="box box-info">
+        <div class="box-header">修改用户信息</div>
+        <div class="box-body">
+            <div  id="modifyUser">
+                <input id="upRoleId" type="hidden"  value="" />
+                <div class="form-group">
+                    <input type="hidden" class="form-control" name="id"  value=""  />
+                    <label>姓名:</label>
+                    <input type="text" class="form-control" name="name" value=""  />
+                    <label>手机号:</label>
+                    <input type="text" class="form-control" name="mobile" value=""  />
+                    <label>项目编号:</label>
+                    <input type="text" class="form-control" name="projectId" value=""  />
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#editinfo">关闭</button>
+            <button type="button" class="btn btn-primary" id="editinfo-btn" >保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!--添加角色-->
+<div id="addUser-div" class="side-right transtion" >
+    <div class="box box-info">
+        <div class="box-header">
+            <h3 class="box-title">添加用户</h3>
+        </div>
+        <div class="box-body">
+            <div  id="roleForm">
+
+                <div class="form-group">
+                    <label>姓名:</label>
+                    <input type="text" class="form-control" name="name" value=""  />
+                    <label>手机号:</label>
+                    <input type="text" class="form-control" name="mobile" value=""  />
+                    <label>项目编号:</label>
+                    <input type="text" class="form-control" name="projectId" value=""  />
+                </div>
+
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box-footer">
+        <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#addUser-div">关闭</button>&nbsp;
+        <button class="btn btn-primary" id="submit-user">添加</button>
+    </div>
+</div>
+</div>
+
+
+
+
+<!-- Modal -->
+<script src="../../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../../../plugins/jQuery/jquery.blockUI.min.js"></script>
+<script src="../../../plugins/jQuery/jquery.form.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../../bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="../../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+<!-- AdminLTE App -->
+<script src="../../../dist/js/app.min.js"></script>
+<script src="../../../js/common.js"></script>
+<!-- httpUtils -->
+<script src="../../../js/httpUtils.js"></script>
+<!-- 地址 -->
+<script src="../../../js/url.js"></script>
+<!-- 图片 -->
+<script src="../../../js/image.js"></script>
+<!-- hint -->
+<script src="../../../js/hint.js"></script>
+<!-- table -->
+
+
+<script src="../../js/user/user.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>
