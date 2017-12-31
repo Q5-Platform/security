@@ -16,39 +16,39 @@ public class InterceptorConfigurer extends WebMvcConfigurerAdapter {
 
     @Value("${server.contextPath}")
     private String contextPath;
-
-    @Bean
-    public SecurityInterceptor securityInterceptor() {
-        return new SecurityInterceptor();
-    }
+//
+//    @Bean
+//    public SecurityInterceptor securityInterceptor() {
+//        return new SecurityInterceptor();
+//    }
 
     @Bean
     public DbChangeInterceptor dbChangeInterceptor() {
         return new DbChangeInterceptor();
     }
 
-    public ExceptionInterceptor exceptionInterceptor(){
-        return new ExceptionInterceptor();
-    }
+//    public ExceptionInterceptor exceptionInterceptor(){
+//        return new ExceptionInterceptor();
+//    }
 
     public void addInterceptors(InterceptorRegistry registry) {
 
-        InterceptorRegistration exceptionInterceptor = registry.addInterceptor(exceptionInterceptor());
-        // 拦截配置
-        exceptionInterceptor.addPathPatterns("/**");
+//        InterceptorRegistration exceptionInterceptor = registry.addInterceptor(exceptionInterceptor());
+//        // 拦截配置
+//        exceptionInterceptor.addPathPatterns("/**");
 
 
         InterceptorRegistration dbChangeInterceptor = registry.addInterceptor(dbChangeInterceptor());
         // 拦截配置
         dbChangeInterceptor.addPathPatterns("/**");
 
-        InterceptorRegistration securityInterceptor = registry.addInterceptor(securityInterceptor());
-
-        // 排除配置
-        securityInterceptor.excludePathPatterns("/error");
-
-        // 拦截配置
-        securityInterceptor.addPathPatterns(contextPath+"/security/**");
+//        InterceptorRegistration securityInterceptor = registry.addInterceptor(securityInterceptor());
+//
+//        // 排除配置
+//        securityInterceptor.excludePathPatterns("/error");
+//
+//        // 拦截配置
+//        securityInterceptor.addPathPatterns(contextPath+"/security/**");
 
     }
 

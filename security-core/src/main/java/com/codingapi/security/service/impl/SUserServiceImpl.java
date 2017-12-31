@@ -1,6 +1,7 @@
 package com.codingapi.security.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.codingapi.filter.core.token.TokenService;
 import com.codingapi.security.db.dao.SUserRoleDao;
 import com.codingapi.security.db.entity.SAdmin;
 import com.codingapi.security.db.entity.SUserRole;
@@ -8,7 +9,7 @@ import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.db.dao.SResourceDao;
 import com.codingapi.security.db.dao.SUserDao;
 import com.codingapi.security.service.SUserService;
-import com.codingapi.security.redis.RedisHelper;
+//import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.utils.RegexUtils;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
@@ -33,7 +34,7 @@ public class SUserServiceImpl implements SUserService {
 
 
     @Autowired
-    private RedisHelper ru;
+    private TokenService tokenService;
 
 
     @Autowired
@@ -88,7 +89,7 @@ public class SUserServiceImpl implements SUserService {
         List<Map<String,Object>> list = resourcedao.findUserResourceByUserId(admin.getId().intValue());
         tokenUser.setResource(list);
         String json = JSONObject.toJSONString(tokenUser);
-        ru.putToken(key , json , 7200); // 两小时
+        tokenService.putToken(key , json , 7200); // 两小时
 
         Map<String,Object> map = new HashMap<>();
         map.put("toKen",key);

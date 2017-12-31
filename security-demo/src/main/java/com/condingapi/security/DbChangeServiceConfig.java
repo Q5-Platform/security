@@ -1,7 +1,7 @@
 package com.condingapi.security;
 
-import com.codingapi.security.db.service.DbChangeService;
-import com.codingapi.security.db.service.impl.DefaultDbChangeService;
+import com.codingapi.security.db.handler.DbChangeService;
+import com.codingapi.security.db.handler.impl.DefaultDbChangeService;
 import com.lorne.core.framework.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

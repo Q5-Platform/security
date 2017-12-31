@@ -1,4 +1,4 @@
-package com.codingapi.security.db.service;
+package com.codingapi.security.db.handler;
 
 import com.lorne.core.framework.exception.ServiceException;
 

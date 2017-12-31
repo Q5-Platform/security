@@ -1,9 +1,10 @@
 package com.codingapi.security.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.codingapi.filter.core.token.TokenService;
 import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.model.VerificationResult;
-import com.codingapi.security.redis.RedisHelper;
+//import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.service.SCheckService;
 import com.codingapi.security.utils.SecurityConfig;
 import com.codingapi.security.utils.SecurityConfigUtils;
@@ -28,7 +29,7 @@ public class SCheckServiceImpl implements SCheckService {
     private String contextPath;
 
     @Autowired
-    private RedisHelper rh;
+    private TokenService tokenService;
 
 
     @Override
@@ -59,7 +60,7 @@ public class SCheckServiceImpl implements SCheckService {
         }
 
         // 获取Token
-        String  checkToken  = rh.getToken(token);
+        String  checkToken  = tokenService.getToken(token);
         if(StringUtils.isEmpty(checkToken)){
             verificationResult.setState(VerificationResult.STATE_ERROR);
             verificationResult.setMsg("token 不存在！");
