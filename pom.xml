@@ -12,7 +12,7 @@
 
     <modules>
         <module>security-core</module>
-        <module>security-db</module>
+        <module>security-proxy</module>
         <module>security-demo</module>
         <module>security-lte</module>
     </modules>

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.codingapi</groupId>
-    <artifactId>security-core</artifactId>
+    <artifactId>security-proxy</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -44,12 +44,6 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.codingapi</groupId>
-            <artifactId>security-proxy</artifactId>
-            <version>1.0.0</version>
         </dependency>
 
         <dependency>

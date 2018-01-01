@@ -3,7 +3,7 @@ package com.codingapi.security.model;
 import java.util.List;
 
 /**
- * Created by yuliang on 2015/8/27.
+ * Created by lorne on 2015/8/27.
  */
 public class Tree {
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by houcunlu on 2017/8/15.
+ * Created by lorne on 2017/8/15.
  */
 public class TokenUser implements Serializable {
 

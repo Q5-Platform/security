@@ -9,7 +9,6 @@ import com.codingapi.security.model.TokenUser;
 import com.codingapi.security.db.dao.SResourceDao;
 import com.codingapi.security.db.dao.SUserDao;
 import com.codingapi.security.service.SUserService;
-//import com.codingapi.security.redis.RedisHelper;
 import com.codingapi.security.utils.RegexUtils;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;

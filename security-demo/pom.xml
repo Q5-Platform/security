@@ -7,7 +7,7 @@
 
     <groupId>com.codingapi</groupId>
     <version>1.0.0</version>
-    <artifactId>seucrity-demo</artifactId>
+    <artifactId>security-demo</artifactId>
 
     <parent>
         <groupId>org.springframework.cloud</groupId>
