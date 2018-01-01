@@ -1,4 +1,4 @@
-package com.condingapi.security;
+package com.codingapi.security.core.handler;
 
 import com.codingapi.filter.core.interceptor.handler.FilterDataResponseHandler;
 import com.codingapi.filter.zuul.handler.self.SelfZuulFilterDataResponseHandler;
@@ -11,7 +11,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 /**
  * create by lorne on 2017/12/31
  */
-public class MyZuulFilterDataResponseHandler implements FilterDataResponseHandler{
+public class SecurityFilterDataResponseHandler implements FilterDataResponseHandler{
 
     SelfZuulFilterDataResponseHandler selfZuulFilterDataResponseHandler = new SelfZuulFilterDataResponseHandler();
 

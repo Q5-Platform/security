@@ -15,24 +15,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DefDbProxyHandler implements DbProxyHandler {
 
+
     @Override
-    public void changeDb(String url) throws ServiceException {
+    public void changeDb(Object handler, HttpServletRequest request, HttpServletResponse response) {
+        String url = request.getRequestURI();
         String dbName = SecurityConfigUtils.getInstance().getDbName(url);
         if(StringUtils.isNotEmpty(dbName)){
             DataSourceLocal dbNameLocal = new DataSourceLocal();
             dbNameLocal.setKey(dbName);
             DataSourceLocal.setCurrent(dbNameLocal);
-            DataSourceProxy.changeDb(DataSourceLocal.current().getKey());
-        }
-    }
-
-    @Override
-    public void changeDb(Object handler, HttpServletRequest request, HttpServletResponse response) {
-        String url = request.getRequestURI();
-        try {
-            changeDb(url);
-        } catch (ServiceException e) {
-            e.printStackTrace();
+            try {
+                DataSourceProxy.changeDb(DataSourceLocal.current().getKey());
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

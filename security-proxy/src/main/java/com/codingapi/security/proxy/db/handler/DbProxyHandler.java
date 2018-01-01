@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface DbProxyHandler {
 
-    void changeDb(String url)throws ServiceException;
+//    void changeDb(String url)throws ServiceException;
 
     void changeDb(Object handler, HttpServletRequest request, HttpServletResponse response);
 }

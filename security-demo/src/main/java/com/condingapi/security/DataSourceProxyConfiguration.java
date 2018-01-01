@@ -1,20 +1,19 @@
-package com.codingapi.security.proxy;
+package com.condingapi.security;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.codingapi.security.proxy.db.DataSourceProxy;
-import com.codingapi.security.proxy.db.handler.DbProxyHandler;
-import com.codingapi.security.proxy.db.handler.def.DefDbProxyHandler;
 import com.codingapi.security.proxy.utils.SecurityConfig;
 import com.codingapi.security.proxy.utils.SecurityConfigUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
 /**
- * create by lorne on 2017/8/17
+ * create by lorne on 2018/1/1
  */
-public class DbConfiguration {
-
+@Configuration
+public class DataSourceProxyConfiguration {
 
     public void reloadDataSource() {
         Map<String, SecurityConfig> securityConfigMap = SecurityConfigUtils.getInstance().getSecurityConfigs();
@@ -43,13 +42,4 @@ public class DbConfiguration {
         reloadDataSource();
         return dataSourceProxy;
     }
-
-
-    @Bean
-    public DbProxyHandler dbProxyHandler(){
-        return new DefDbProxyHandler();
-    }
-
-
-
 }
