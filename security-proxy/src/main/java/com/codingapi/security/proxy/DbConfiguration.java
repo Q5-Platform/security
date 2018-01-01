@@ -16,7 +16,6 @@ import java.util.Map;
 public class DbConfiguration {
 
 
-
     public void reloadDataSource() {
         Map<String, SecurityConfig> securityConfigMap = SecurityConfigUtils.getInstance().getSecurityConfigs();
         for (String name : securityConfigMap.keySet()) {
